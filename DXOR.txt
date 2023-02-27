@@ -1,0 +1,45 @@
+int word = 0; 
+  int digit = 0;      
+  int hashValue = 0;
+  int mod = 0;
+
+  string value;
+  vector <string> Values;
+  vector <int> numbers;
+
+  word = key.length() / 7;
+  mod = key.length() % 7;
+
+  if (key.length() > 7){
+    for (int i = 0; i < word; i++){
+      value = key.substr((i * 7), 7);
+      Values.push_back(value);
+    } 
+
+    for (int i = 0; i < int(Values.size()); i++){
+      stringstream s(Values[i]);
+      s >> hex >> digit;
+      numbers.push_back(digit);
+      s.clear();
+    }
+
+    if (mod != 0){
+      key = key.substr(word * 7, 7);
+      stringstream ss(key);
+      ss >> hex >> digit;
+      numbers.push_back(digit);
+      ss.clear();
+    }
+
+    for (int i = 0; i < int(numbers.size()); i++){
+      hashValue = hashValue^numbers[i];
+    }
+
+    return hashValue;
+  }
+  else {
+    stringstream sin(key);
+    sin >> hex >> digit;
+    sin.clear();
+    return digit;
+  }
